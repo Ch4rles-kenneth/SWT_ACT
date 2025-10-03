@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
+    <!-- jQuery & Validation Plugin -->
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.21.0/jquery.validate.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="title">Welcome</h1>
+        <form id="loginForm">
+            <div class="input-group">
+                <i class="bx bx-user"></i>
+                <input type="text" name="username" placeholder="Username" required>
+            </div>
+            <div class="input-group">
+                <i class="bx bx-lock-alt"></i>
+                <input type="password" name="password" placeholder="Password" required>
+            </div>
+            <button type="submit" class="btn">Login</button>
+            <div class="links">
+                <a href="#">Forgot Password</a>
+                <a href="register.html">Sign up</a>
+            </div>
+        </form>
+    </div>
+
+<script>
+$(document).ready(function () {
+    $("#loginForm").validate({
+        rules: {
+            username: "required",
+            password: "required"
+        },
+        messages: {
+            username: "Please enter your username",
+            password: "Please enter your password"
+        },
+        submitHandler: function (form) {
+            const username = $("input[name='username']").val();
+            const password = $("input[name='password']").val();
+
+            if (username === "admin" && password === "12345") {
+                localStorage.setItem("username", username);
+                window.location.href = "landingpage.html";
+            } else {
+                alert("Invalid login. Try admin / 12345");
+            }
+        }
+    });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
+    <!-- jQuery & Validation Plugin -->
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.21.0/jquery.validate.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="title">Sign Up</h1>
+        <form id="registerForm">
+            <div class="input-group">
+                <i class="bx bx-user"></i>
+                <input type="text" name="username" placeholder="Username" required>
+            </div>
+            <div class="input-group">
+                <i class="bx bx-envelope"></i>
+                <input type="email" name="email" placeholder="Email" required>
+            </div>
+            <div class="input-group">
+                <i class="bx bx-phone"></i>
+                <input type="tel" name="phone" placeholder="Phone Number" required>
+            </div>
+            <div class="input-group">
+                <i class="bx bx-lock-alt"></i>
+                <input type="password" name="password" id="password" placeholder="Password" required>
+            </div>
+            <div class="input-group">
+                <i class="bx bx-lock"></i>
+                <input type="password" name="confirm_password" placeholder="Confirm Password" required>
+            </div>
+            <button type="submit" class="btn">Register</button>
+            <div class="links">
+                <a href="index.html">Already have an account?</a>
+            </div>
+        </form>
+    </div>
+
+<script>
+$(document).ready(function () {
+    $.validator.addMethod("phonePH", function(value, element) {
+        return this.optional(element) || /^09\d{9}$/.test(value);
+    }, "Enter a valid PH phone number (e.g. 09123456789)");
+
+    $("#registerForm").validate({
+        rules: {
+            username: "required",
+            email: {
+                required: true,
+                email: true
+            },
+            phone: {
+                required: true,
+                phonePH: true
+            },
+            password: {
+                required: true,
+                minlength: 6
+            },
+            confirm_password: {
+                required: true,
+                equalTo: "#password"
+            }
+        },
+        messages: {
+            username: "Please enter your username",
+            email: {
+                required: "Please enter your email",
+                email: "Invalid email format"
+            },
+            phone: {
+                required: "Please enter your phone number"
+            },
+            password: {
+                required: "Please enter a password",
+                minlength: "Password must be at least 6 characters"
+            },
+            confirm_password: {
+                required: "Please confirm your password",
+                equalTo: "Passwords must match"
+            }
+        },
+        submitHandler: function (form) {
+            const username = $("input[name='username']").val();
+            localStorage.setItem("username", username);
+            alert("Registration successful! Please login.");
+            window.location.href = "index.html";
+        }
+    });
+});
+</script>
+</body>
+</html>
